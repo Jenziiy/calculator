@@ -33,11 +33,12 @@ operandButtons.forEach(button => button.addEventListener('click', getOperandValu
 
 operatorButtons.forEach(button => button.addEventListener('click', getOperatorValue));
 
+assignmentOperator.addEventListener('click', computeNumbers);
+
 function computeNumbers(){
-  calculation.operator = this.innerText;
   switch (calculation.operator) {
-    case calculation.operator == 'x':
-      calculation.result = calculation.operandA * calculation.operandB;
+    case 'x':
+        calculation.result = calculation.operandA * calculation.operandB;
       break;
       case '/':
         calculation.result = calculation.operandA / calculation.operandB;
@@ -51,5 +52,5 @@ function computeNumbers(){
     default:
       break;
   }
-  console.log(calculation.result);
+  console.log(calculation);
 }
