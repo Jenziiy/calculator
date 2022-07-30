@@ -1,6 +1,6 @@
 var calculation = {};
 calculation.operandA = undefined;
-calculation.operation = "*";
+calculation.operator = undefined;
 calculation.operandB = undefined;
 calculation.result = "";
 console.log(calculation);
@@ -20,18 +20,22 @@ let validNumber = /^[0-9]+$/;
   console.log(calculation);
 }
 
-operandButtons.forEach(button => button.addEventListener('click', getOperandValue));
+function getOperatorValue() {
+  calculation.operator = this.innerText;
+}
 
 function addNumbers() {
   console.log(calculation.operandA + calculation.operandB);
 }
 
-operatorButtons.forEach(button => button.addEventListener('click', getOperationValue));
+operandButtons.forEach(button => button.addEventListener('click', getOperandValue));
+
+operatorButtons.forEach(button => button.addEventListener('click', getOperatorValue));
 
 function computeNumbers(){
-  calculation.operation = this.innerText;
-  switch (calculation.operation) {
-    case calculation.operation == 'x':
+  calculation.operator = this.innerText;
+  switch (calculation.operator) {
+    case calculation.operator == 'x':
       calculation.result = calculation.operandA * calculation.operandB;
       break;
       case '/':
