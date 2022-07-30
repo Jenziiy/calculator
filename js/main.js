@@ -22,6 +22,7 @@ let validNumber = /^[0-9]+$/;
 
 function getOperatorValue() {
   calculation.operator = this.innerText;
+  console.log(calculation);
 }
 
 function addNumbers() {
