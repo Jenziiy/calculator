@@ -25,8 +25,9 @@ function getOperatorValue() {
   console.log(calculation);
 }
 
-function addNumbers() {
-  console.log(calculation.operandA + calculation.operandB);
+function resetOperands() {
+  calculation.operandA = undefined;
+  calculation.operandB = undefined;
 }
 
 operandButtons.forEach(button => button.addEventListener('click', getOperandValue));
@@ -53,4 +54,6 @@ function computeNumbers(){
       break;
   }
   console.log(calculation);
+  resetOperands();
+
 }
