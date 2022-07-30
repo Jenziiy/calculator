@@ -14,7 +14,8 @@ body {
   border: black solid;
   flex-flow: column;
   align-items: flex-start;
-  max-width: 35vw;
+  max-width: 24vw;
+  max-height: 70vw;
   background-color: rgb(178, 234, 234);
   
 }
@@ -22,6 +23,10 @@ body {
 margin-bottom: 5%;
 width: 88%;
 text-align: center;
+}
+
+h3 {
+  font-size: 1.5vw;
 }
 
 .output-screen{
@@ -32,6 +37,7 @@ text-align: center;
   padding-bottom: 20%;
   padding-right: 10%;
   text-align: end;
+  font-size: 2vw;
 }
 
 .calculator-section {
@@ -50,19 +56,24 @@ text-align: center;
 
 .calculator-numpad {
   display: flex;
+  flex: 0 1 auto;
   flex-flow: row wrap;
+  max-width: 100%;
 }
 
 button {
   display: flex;
   width: 25%;
-  height: 6vh;
+  height: 6.2vh;
   flex-grow: 1;
   font-weight: 900;
   padding-right: 0.1rem;
   background-color: hotpink;
   border-color: rgb(247, 133, 230); 
   color: darkslateblue;
+  cursor: url(../img/cat-cursor.png), pointer;
+  font-size: 1.4vw;
+  max-height: 70%;
 }
 
 footer {
