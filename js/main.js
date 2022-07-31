@@ -101,7 +101,7 @@ function computeNumbers(){
      }
   }
   console.log(calculation);
-  if (calculation.operator == '/' && (calculation.operandB == 0 && calculation.operandA == 0) || (calculation.operandA == 0 && calculation.operandB != 0)) {
+  if (calculation.operator == '/' && (calculation.operandB == 0 )) {
     document.querySelector('.calculator').style.display = "none";
     speechBubble.style.display = "block";
   };
