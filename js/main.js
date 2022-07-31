@@ -3,6 +3,8 @@ calculation.operandA = "";
 calculation.operator = "";
 calculation.operandB = "";
 calculation.result = "";
+let validNumber = /^[0-9_._,]+$/;
+let validOperator = /^[A-Za-wy-z0-9_._,]+$/;
 console.log(calculation);
 const operandButtons = document.querySelectorAll('.operand');
 const operatorButtons = document.querySelectorAll('.operator');
@@ -13,7 +15,9 @@ const clearButton = document.querySelector('.clear');
 outputScreen = document.querySelector('.text-calculation');
 resultScreen = document.querySelector('.text-result');
 
-function getOperandValue() {
+function getOperandValue(e) {
+  let validNumber = /^[0-9]+$/;
+  if(validNumber.test(e.key)|| this.innerText != "") {if (e.key != undefined) {this.innerText = e.key; console.log(e.key)} ;
   if(calculation.operator == "") {
     calculation.operandA += parseInt(this.innerText); //rids trailing zero.
     console.log(this.innerText);
@@ -25,11 +29,14 @@ function getOperandValue() {
   }
   console.log(calculation);
   setOutput();
+  }
 }
 
-function getOperatorValue() {
+function getOperatorValue(e) {
   if (calculation.operator == "") {
-  calculation.operator = this.innerText;
+    if (e.key != undefined) { calculation.operator = e.key; }
+    else {
+  calculation.operator = this.innerText;}
   console.log(calculation);
   setOutput();
   }
@@ -95,6 +102,11 @@ function setOutput() {
 function clearScreen() {
   outputScreen.innerText = ``;
   resultScreen.innerText = ``;
+  calculation.operandA = "";
+  calculation.operandB = "";
+  calculation.operator = "";
+  calculation.result = "";
+
   operatorButtons.forEach(button => button.classList.remove('operator-disable'));
 }
 
@@ -109,14 +121,25 @@ function disableOperatorButtons() {
 }
 
 operandButtons.forEach(button => button.addEventListener('click', getOperandValue));
+document.addEventListener('keydown', (e) => { 
+  if(validNumber.test(e.key)) {getOperandValue(e)}});
 
 operatorButtons.forEach(button => button.addEventListener('click', getOperatorValue));
+document.addEventListener('keypress', (e) => { 
+  if(!validOperator.test(e.key)) {getOperatorValue(e)}});
 
 operatorButtons.forEach(button => button.addEventListener('click', disableOperatorButtons));
+document.addEventListener('keypress', (e) => { if(!validOperator.test(e.key)) {disableOperatorButtons()}});
 
 assignmentOperator.addEventListener('click', computeNumbers);
+document.addEventListener('keypress', (e) => { 
+  if(e.key == 'Enter' || e.key == '=' ) {computeNumbers() }
+else if(e.key == ' ') {clearScreen()}
+});
 
 backspace.addEventListener('click', removeCharacter);
+document.addEventListener('keydown', (e) => { if(e.key == 'Backspace') {removeCharacter()}})
+
 
 clearButton.addEventListener('click', () => { for(const key in calculation){calculation[key] = "";} console.log(calculation); clearScreen()});
 
