@@ -10,6 +10,7 @@ const assignmentOperator = document.querySelector('.assignment');
 const outputOperation = document.querySelector('.text-calculation');
 const backspace = document.querySelector('.backspace');
 const clearButton = document.querySelector('.clear');
+outputScreen = document.querySelector('.text-calculation');
 
 function getOperandValue() {
 //let validNumber = /^[0-9]+$/;
@@ -21,6 +22,7 @@ function getOperandValue() {
     console.log(this.innerText);
   }
   console.log(calculation);
+  setOutput();
 }
 
 function getOperatorValue() {
@@ -44,6 +46,17 @@ function removeCharacter() {
   }
 }
 
+function setOutput() {
+  outputScreen.innerText = `${calculation.operandA} ${calculation.operator} ${calculation.operandB} = ${calculation.result}`;
+}
+function clearOutput() {
+  outputScreen.innerText = ``;
+}
+
+function setOutputItem() {
+  outputScreen.innerText = `${calculation.operandA} ${calculation.operator} ${calculation.operandB}`;
+}
+
 operandButtons.forEach(button => button.addEventListener('click', getOperandValue));
 
 operatorButtons.forEach(button => button.addEventListener('click', getOperatorValue));
@@ -52,7 +65,10 @@ assignmentOperator.addEventListener('click', computeNumbers);
 
 backspace.addEventListener('click', removeCharacter);
 
-clearButton.addEventListener('click', () => { for(const key in calculation){calculation[key] = "";} console.log(calculation)});
+clearButton.addEventListener('click', () => { for(const key in calculation){calculation[key] = "";} console.log(calculation); clearOutput()});
+
+
+    
 
 function computeNumbers(){
   if ( calculation.operandA != undefined && calculation.operandB != undefined) {
@@ -74,6 +90,7 @@ function computeNumbers(){
      }
   }
   console.log(calculation);
+  setOutput();
   resetOperands();
 
 }
