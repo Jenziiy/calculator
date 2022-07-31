@@ -150,5 +150,5 @@ decimalButton.addEventListener('click', getOperandValue);
 speechBubble.addEventListener('click', () => {
   document.querySelector('.calculator').style.display = 'flex'
   document.querySelector('.speech-bubble').style.display = 'none'
-  clearScreen});
+  clearScreen()});
 
