@@ -99,3 +99,20 @@ footer {
   margin-top: 2%;
   font-size: 80%;
 }
+
+.speech-bubble {
+  display: none;
+  position: absolute;
+  width: auto;
+  min-height: 90%;
+	position: sticky;
+	background-image: url("../img/funnybot.jpg");
+	border-radius: .4em;
+	border: 10px solid transparent;
+	border-top-color: #000000;
+  font-size: 2.4rem;
+  text-align: center;
+  text-justify: center;
+  color:green;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}

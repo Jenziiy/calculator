@@ -1,20 +1,12 @@
-var calculation = {};
-calculation.operandA = "";
-calculation.operator = "";
-calculation.operandB = "";
-calculation.result = "";
-let validNumber = /^[0-9_._,]+$/;
-let validOperator = /^[A-Za-wy-z0-9_._,]+$/;
+import {assignmentOperator, backspace, clearButton, decimalButton, operandButtons, operatorButtons, outputOperation,  outputScreen, resultScreen, speechBubble, validNumber, validOperator} from './consts.js'
+var calculation = {
+  operandA : "",
+  operator : "",
+  operandB : "",
+  result : "",
+}
 console.log(calculation);
-const operandButtons = document.querySelectorAll('.operand');
-const operatorButtons = document.querySelectorAll('.operator');
-const decimalButton = document.querySelector('.decimal');
-const assignmentOperator = document.querySelector('.assignment');
-const outputOperation = document.querySelector('.text-calculation');
-const backspace = document.querySelector('.backspace');
-const clearButton = document.querySelector('.clear');
-outputScreen = document.querySelector('.text-calculation');
-resultScreen = document.querySelector('.text-result');
+
 
 
 function getOperandValue(e) {
@@ -92,6 +84,11 @@ function computeNumbers(){
      }
   }
   console.log(calculation);
+  if (calculation.operator == '/' && calculation.operandB == 0 || calculation.operandA == 0) {
+    document.querySelector('.calculator').style.display = "none";
+    speechBubble.style.display = "block";
+
+  };
   setOutput();
   resetOperation();
 
@@ -150,5 +147,8 @@ document.addEventListener('keydown', (e) => { if(e.key == 'Backspace') {removeCh
 clearButton.addEventListener('click', () => { for(const key in calculation){calculation[key] = "";} console.log(calculation); clearScreen()});
 decimalButton.addEventListener('click', getOperandValue);
 
-    
+speechBubble.addEventListener('click', () => {
+  document.querySelector('.calculator').style.display = 'flex'
+  document.querySelector('.speech-bubble').style.display = 'none'
+  clearScreen});
 
