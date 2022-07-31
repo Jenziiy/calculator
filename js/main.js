@@ -95,6 +95,7 @@ function computeNumbers(){
 function setOutput() {
   setOutputItem();
   if (calculation.result != "") { 
+    calculation.result = parseFloat(Math.round(calculation.result * 100)/100).toString();
     resultScreen.innerText = `= ${calculation.result}`;
     }
 }
