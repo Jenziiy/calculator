@@ -14,7 +14,6 @@ outputScreen = document.querySelector('.text-calculation');
 resultScreen = document.querySelector('.text-result');
 
 function getOperandValue() {
-//let validNumber = /^[0-9]+$/;
   if(calculation.operator == "") {
     calculation.operandA += parseInt(this.innerText); //rids trailing zero.
     console.log(this.innerText);
@@ -36,36 +35,67 @@ function getOperatorValue() {
   }
 }
 
-function resetOperands() {
+function resetOperation() {
   calculation.operandA = calculation.result;
   outputScreen.innerText = calculation.operandA;
   resultScreen.innerText = "";
   calculation.operandB = "";
   calculation.operator = "";
   calculation.result = "";
+  operatorButtons.forEach(button => button.classList.remove('operator-disable'));
 }
 
 function removeCharacter() {
-  if (calculation.operator == 0 && (calculation.operandA != 0)){
+  if ((calculation.operator == "") && (calculation.operandA != "")){
   calculation.operandA = calculation.operandA.slice(0,-1);
   console.log(calculation.operandA);
   outputScreen.innerText = calculation.operandA;
-  } else if (calculation.operandA != 0) {
+  } else if ((calculation.operandA != "") && (calculation.operator != "") && (calculation.operandB != "")) {
     calculation.operandB = calculation.operandB.slice(0,-1);
     console.log(calculation.operandB);
+    outputScreen.innerText = calculation.operandA + calculation.operator + calculation.operandB;
+  } else {
+    calculation.operator = "";
     outputScreen.innerText = calculation.operandA;
   }
 }
 
+function computeNumbers(){
+  if ( calculation.operandA != "" && calculation.operandB != "") {
+    switch (calculation.operator) {
+      case 'x':
+          calculation.result = calculation.operandA * calculation.operandB;
+        break;
+        case '/':
+          calculation.result = calculation.operandA / calculation.operandB;
+        break;
+        case '+':
+          calculation.result = +calculation.operandA + +calculation.operandB;
+        break;
+        case '-':
+          calculation.result = +calculation.operandA - +calculation.operandB;
+        break;  
+      default:
+        break;
+     }
+  }
+  console.log(calculation);
+  setOutput();
+  resetOperation();
+
+}
+
 function setOutput() {
-  outputScreen.innerText = `${calculation.operandA} ${calculation.operator} ${calculation.operandB} `;
+  setOutputItem();
   if (calculation.result != "") { 
     resultScreen.innerText = `= ${calculation.result}`;
     }
 }
-function clearOutput() {
+
+function clearScreen() {
   outputScreen.innerText = ``;
   resultScreen.innerText = ``;
+  operatorButtons.forEach(button => button.classList.remove('operator-disable'));
 }
 
 function setOutputItem() {
@@ -88,32 +118,8 @@ assignmentOperator.addEventListener('click', computeNumbers);
 
 backspace.addEventListener('click', removeCharacter);
 
-clearButton.addEventListener('click', () => { for(const key in calculation){calculation[key] = "";} console.log(calculation); clearOutput()});
+clearButton.addEventListener('click', () => { for(const key in calculation){calculation[key] = "";} console.log(calculation); clearScreen()});
 
 
     
 
-function computeNumbers(){
-  if ( calculation.operandA != undefined && calculation.operandB != undefined) {
-    switch (calculation.operator) {
-      case 'x':
-          calculation.result = calculation.operandA * calculation.operandB;
-        break;
-        case '/':
-          calculation.result = calculation.operandA / calculation.operandB;
-        break;
-        case '+':
-          calculation.result = +calculation.operandA + +calculation.operandB;
-        break;
-        case '-':
-          calculation.result = +calculation.operandA - +calculation.operandB;
-        break;  
-      default:
-        break;
-     }
-  }
-  console.log(calculation);
-  setOutput();
-  resetOperands();
-
-}
