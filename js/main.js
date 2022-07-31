@@ -8,6 +8,7 @@ let validOperator = /^[A-Za-wy-z0-9_._,]+$/;
 console.log(calculation);
 const operandButtons = document.querySelectorAll('.operand');
 const operatorButtons = document.querySelectorAll('.operator');
+const decimalButton = document.querySelector('.decimal');
 const assignmentOperator = document.querySelector('.assignment');
 const outputOperation = document.querySelector('.text-calculation');
 const backspace = document.querySelector('.backspace');
@@ -15,18 +16,22 @@ const clearButton = document.querySelector('.clear');
 outputScreen = document.querySelector('.text-calculation');
 resultScreen = document.querySelector('.text-result');
 
+
 function getOperandValue(e) {
-  let validNumber = /^[0-9]+$/;
+  let validNumber = /^[0-9_._,]+$/;
   if(validNumber.test(e.key)|| this.innerText != "") {if (e.key != undefined) {this.innerText = e.key; console.log(e.key)} ;
   if(calculation.operator == "") {
-    calculation.operandA += parseInt(this.innerText); //rids trailing zero.
+    if( /[,_.]/.test(calculation.operandA) && this.innerText == '.' || this.innerText == ',') {this.innerText = ""};
+    calculation.operandA += this.innerText; //gets rid of trailing zero.
     console.log(this.innerText);
     outputScreen.innerText = calculation.operandA;
-  } else if(calculation.operator != 0) {
-    calculation.operandB += parseInt(this.innerText); 
+  } else if(calculation.operator != "") {
+    if( /[,_.]/.test(calculation.operandB) && this.innerText == '.' || this.innerText == ',') {this.innerText = ""};
+    calculation.operandB += this.innerText; 
     console.log(this.innerText);
     outputScreen.innerText = calculation.operandB;
   }
+  decimalButton.innerText = '.';
   console.log(calculation);
   setOutput();
   }
@@ -143,7 +148,7 @@ document.addEventListener('keydown', (e) => { if(e.key == 'Backspace') {removeCh
 
 
 clearButton.addEventListener('click', () => { for(const key in calculation){calculation[key] = "";} console.log(calculation); clearScreen()});
-
+decimalButton.addEventListener('click', getOperandValue);
 
     
 
