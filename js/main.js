@@ -47,7 +47,7 @@ function getOperandValueKey(e) {
 }
 
 function getOperatorValue(e) {
-  if (calculation.operator == "") {
+  if (calculation.operator == "" && calculation.operandA != "") {
     if (e.key != undefined) { calculation.operator = e.key; }
     else {
   calculation.operator = this.innerText;}
@@ -101,10 +101,16 @@ function computeNumbers(){
      }
   }
   console.log(calculation);
-  if (calculation.operator == '/' && (calculation.operandB == 0 )) {
+  if (calculation.operator == '/' && (calculation.operandB == 0 ^ calculation.operandA == 0)) {
     document.querySelector('.calculator').style.display = "none";
     speechBubble.style.display = "block";
+  } else if (calculation.operator == '/' && (calculation.operandB == 0 && calculation.operandA == 0)) {
+    document.querySelector('.calculator').style.display = "none";
+    speechBubble.style.display = "block";
+    speechBubble.innerText = 'OMGG YOU SHOULD NOT DIVIDE BY ZERO DATS LIEK SUPER UNDEFINED';
+    speechBubble.style.backgroundImage = "url('../img/unicorn.png')";
   };
+  
   setOutput();
   resetOperation();
 
@@ -152,8 +158,8 @@ document.addEventListener('keypress', (e) => { if(!validOperator.test(e.key)) {d
 
 assignmentOperator.addEventListener('click', computeNumbers);
 document.addEventListener('keydown', (e) => { 
-  if(e.key == 'Enter') {computeNumbers() }
-else if(e.key == ' ') {clearScreen()}
+  if(e.code == 'Enter') {computeNumbers() }
+else if(e.code == 'Space') {clearScreen()}
 });
 
 document.addEventListener('keypress', (e) => { 

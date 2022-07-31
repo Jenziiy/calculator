@@ -102,6 +102,7 @@ footer {
 
 .speech-bubble {
   display: none;
+  flex-wrap: wrap;
   position: absolute;
   width: auto;
   min-height: 90%;
