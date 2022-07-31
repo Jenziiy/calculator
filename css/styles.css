@@ -19,13 +19,13 @@ body {
   flex-flow: column;
   align-items: flex-start;
   max-width: 24vw;
-  max-height: 70vw;
+  max-height: 35vw;
   background-color: rgb(178, 234, 234);
   border-radius: 0.7vw;
   
 }
 .calculator-header {
-margin-bottom: 5%;
+margin-bottom: 0%;
 width: 88%;
 text-align: center;
 text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
@@ -64,7 +64,8 @@ h3 {
   flex-flow: column;
   display: flex;
   flex: 0 1 90%;
-  width: 90%;
+  width: 88%;
+  max-height: 80%;
   margin-bottom: 10%;
   margin-top: 7.5%;
 }
@@ -74,6 +75,7 @@ h3 {
   flex: 0 1 auto;
   flex-flow: row wrap;
   max-width: 100%;
+  max-height: 100%;
   border: rgb(102, 51, 153, 0.5) solid;
   border-radius: 2%;
 }
@@ -81,7 +83,7 @@ h3 {
 button {
   display: flex;
   width: 25%;
-  height: 6.2vh;
+  height: 3.2vw;
   flex-grow: 1;
   font-weight: 900;
   padding-right: 0.1rem;
