@@ -1,17 +1,14 @@
 import {assignmentOperator, backspace, clearButton, decimalButton, operandButtons, operatorButtons, outputOperation,  outputScreen, resultScreen, speechBubble, validNumber, validOperator} from './consts.js'
-var calculation = {
-  operandA : "",
-  operator : "",
-  operandB : "",
-  result : "",
-}
+var calculation = {};
+calculation.operandA = "";
+calculation.operator = "";
+calculation.operandB = "";
+calculation.result = "";
 console.log(calculation);
 
 
 
-function getOperandValue(e) {
-  let validNumber = /^[0-9_._,]+$/;
-  if(validNumber.test(e.key)|| this.innerText != "") {if (e.key != undefined) {this.innerText = e.key; console.log(e.key)} ;
+function getOperandValue() {
   if(calculation.operator == "") {
     if( /[,_.]/.test(calculation.operandA) && this.innerText == '.' || this.innerText == ',') {this.innerText = ""};
     calculation.operandA += this.innerText; //gets rid of trailing zero.
@@ -21,6 +18,26 @@ function getOperandValue(e) {
     if( /[,_.]/.test(calculation.operandB) && this.innerText == '.' || this.innerText == ',') {this.innerText = ""};
     calculation.operandB += this.innerText; 
     console.log(this.innerText);
+    outputScreen.innerText = calculation.operandB;
+  }
+  decimalButton.innerText = '.';
+  console.log(calculation);
+  setOutput();
+  }
+
+function getOperandValueKey(e) {
+  let validNumber = /^[0-9_._,]+$/;
+  console.log(e.key);
+  if(validNumber.test(e.key)|| outputOperation.innerText != "") {if (e.key != undefined) {outputOperation.innerText = e.key;} ;
+  if(calculation.operator == "") {
+    if( /[,_.]/.test(calculation.operandA) && outputOperation.innerText == '.' || outputOperation.innerText == ',') {outputOperation.innerText = ""};
+    calculation.operandA += outputOperation.innerText; //gets rid of trailing zero.
+    console.log(outputOperation.innerText);
+    outputScreen.innerText = calculation.operandA;
+  } else if(calculation.operator != "") {
+    if( /[,_.]/.test(calculation.operandB) && outputOperation.innerText == '.' || outputOperation.innerText == ',') {outputOperation.innerText = ""};
+    calculation.operandB += outputOperation.innerText; 
+    console.log(outputOperation.innerText);
     outputScreen.innerText = calculation.operandB;
   }
   decimalButton.innerText = '.';
@@ -84,10 +101,9 @@ function computeNumbers(){
      }
   }
   console.log(calculation);
-  if (calculation.operator == '/' && calculation.operandB == 0 || calculation.operandA == 0) {
+  if (calculation.operator == '/' && (calculation.operandB == 0 && calculation.operandA == 0) || (calculation.operandA == 0 && calculation.operandB != 0)) {
     document.querySelector('.calculator').style.display = "none";
     speechBubble.style.display = "block";
-
   };
   setOutput();
   resetOperation();
@@ -125,7 +141,7 @@ function disableOperatorButtons() {
 
 operandButtons.forEach(button => button.addEventListener('click', getOperandValue));
 document.addEventListener('keydown', (e) => { 
-  if(validNumber.test(e.key)) {getOperandValue(e)}});
+  if(validNumber.test(e.key)) {getOperandValueKey(e)}});
 
 operatorButtons.forEach(button => button.addEventListener('click', getOperatorValue));
 document.addEventListener('keypress', (e) => { 
@@ -135,9 +151,13 @@ operatorButtons.forEach(button => button.addEventListener('click', disableOperat
 document.addEventListener('keypress', (e) => { if(!validOperator.test(e.key)) {disableOperatorButtons()}});
 
 assignmentOperator.addEventListener('click', computeNumbers);
-document.addEventListener('keypress', (e) => { 
-  if(e.key == 'Enter' || e.key == '=' ) {computeNumbers() }
+document.addEventListener('keydown', (e) => { 
+  if(e.key == 'Enter') {computeNumbers() }
 else if(e.key == ' ') {clearScreen()}
+});
+
+document.addEventListener('keypress', (e) => { 
+  if(e.key == '=' ) {computeNumbers() }
 });
 
 backspace.addEventListener('click', removeCharacter);
@@ -148,7 +168,6 @@ clearButton.addEventListener('click', () => { for(const key in calculation){calc
 decimalButton.addEventListener('click', getOperandValue);
 
 speechBubble.addEventListener('click', () => {
-  document.querySelector('.calculator').style.display = 'flex'
-  document.querySelector('.speech-bubble').style.display = 'none'
+  document.querySelector('.calculator').style.display = 'flex';
+  document.querySelector('.speech-bubble').style.display = 'none';
   clearScreen()});
-
