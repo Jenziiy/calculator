@@ -1,7 +1,7 @@
 var calculation = {};
 calculation.operandA = "";
 calculation.operator = 0;
-calculation.operandB = 0;
+calculation.operandB = "";
 calculation.result = 0;
 console.log(calculation);
 const operandButtons = document.querySelectorAll('.operand');
@@ -13,10 +13,10 @@ const backspace = document.querySelector('.backspace');
 function getOperandValue() {
 //let validNumber = /^[0-9]+$/;
   if(calculation.operator == "") {
-    calculation.operandA += parseInt(this.innerText);
+    calculation.operandA += parseInt(this.innerText); //rids trailing zero.
     console.log(this.innerText);
   } else if(calculation.operator != 0) {
-    calculation.operandB = this.innerText;
+    calculation.operandB += parseInt(innerText); 
     console.log(this.innerText);
   }
   console.log(calculation);
@@ -33,7 +33,7 @@ function resetOperands() {
 }
 
 function removeCharacter() {
-  if (operator == 0){
+  if (calculation.operator == 0){
   calculation.operandA = calculation.operandA.slice(0,-1);
   console.log(calculation.operandA);
   } else {
