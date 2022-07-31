@@ -9,6 +9,7 @@ const operatorButtons = document.querySelectorAll('.operator');
 const assignmentOperator = document.querySelector('.assignment');
 const outputOperation = document.querySelector('.text-calculation');
 const backspace = document.querySelector('.backspace');
+const clearButton = document.querySelector('.clear');
 
 function getOperandValue() {
 //let validNumber = /^[0-9]+$/;
@@ -16,7 +17,7 @@ function getOperandValue() {
     calculation.operandA += parseInt(this.innerText); //rids trailing zero.
     console.log(this.innerText);
   } else if(calculation.operator != 0) {
-    calculation.operandB += parseInt(innerText); 
+    calculation.operandB += parseInt(this.innerText); 
     console.log(this.innerText);
   }
   console.log(calculation);
@@ -28,8 +29,9 @@ function getOperatorValue() {
 }
 
 function resetOperands() {
-  calculation.operandA = undefined;
-  calculation.operandB = undefined;
+  calculation.operandA = calculation.result;
+  calculation.operandB = "";
+  calculation.operator = "";
 }
 
 function removeCharacter() {
@@ -50,6 +52,8 @@ assignmentOperator.addEventListener('click', computeNumbers);
 
 backspace.addEventListener('click', removeCharacter);
 
+clearButton.addEventListener('click', () => { for(const key in calculation){calculation[key] = "";} console.log(calculation)});
+
 function computeNumbers(){
   if ( calculation.operandA != undefined && calculation.operandB != undefined) {
     switch (calculation.operator) {
@@ -60,10 +64,10 @@ function computeNumbers(){
           calculation.result = calculation.operandA / calculation.operandB;
         break;
         case '+':
-          calculation.result = calculation.operandA + calculation.operandB;
+          calculation.result = +calculation.operandA + +calculation.operandB;
         break;
         case '-':
-          calculation.result = calculation.operandA - calculation.operandB;
+          calculation.result = +calculation.operandA - +calculation.operandB;
         break;  
       default:
         break;
