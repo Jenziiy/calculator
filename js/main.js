@@ -1,19 +1,22 @@
 var calculation = {};
-calculation.operandA = undefined;
-calculation.operator = undefined;
-calculation.operandB = undefined;
-calculation.result = "";
+calculation.operandA = "";
+calculation.operator = 0;
+calculation.operandB = 0;
+calculation.result = 0;
 console.log(calculation);
 const operandButtons = document.querySelectorAll('.operand');
 const operatorButtons = document.querySelectorAll('.operator');
 const assignmentOperator = document.querySelector('.assignment');
+const outputOperation = document.querySelector('.text-calculation');
+const backspace = document.querySelector('');
 
 function getOperandValue() {
-let validNumber = /^[0-9]+$/;
-  if(validNumber.test(this.innerText) && (calculation.operandA == undefined)) {
-    calculation.operandA = this.innerText;
+//let validNumber = /^[0-9]+$/;
+  if(calculation.operator == "") {
+    calculation.operandA += parseInt(this.innerText);
+
     console.log(this.innerText);
-  } else if(validNumber.test(this.innerText)) {
+  } else if(calculation.operator != 0) {
     calculation.operandB = this.innerText;
     console.log(this.innerText);
   }
@@ -37,21 +40,23 @@ operatorButtons.forEach(button => button.addEventListener('click', getOperatorVa
 assignmentOperator.addEventListener('click', computeNumbers);
 
 function computeNumbers(){
-  switch (calculation.operator) {
-    case 'x':
-        calculation.result = calculation.operandA * calculation.operandB;
-      break;
-      case '/':
-        calculation.result = calculation.operandA / calculation.operandB;
-      break;
-      case '+':
-        calculation.result = calculation.operandA + calculation.operandB;
-      break;
-      case '-':
-        calculation.result = calculation.operandA - calculation.operandB;
-      break;  
-    default:
-      break;
+  if ( calculation.operandA != undefined && calculation.operandB != undefined) {
+    switch (calculation.operator) {
+      case 'x':
+          calculation.result = calculation.operandA * calculation.operandB;
+        break;
+        case '/':
+          calculation.result = calculation.operandA / calculation.operandB;
+        break;
+        case '+':
+          calculation.result = calculation.operandA + calculation.operandB;
+        break;
+        case '-':
+          calculation.result = calculation.operandA - calculation.operandB;
+        break;  
+      default:
+        break;
+     }
   }
   console.log(calculation);
   resetOperands();
