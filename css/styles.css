@@ -41,6 +41,7 @@ h3 {
   border: rgb(148, 112, 143) solid; 
   color: rgb(255, 236, 63);
   width: 78%;
+  min-height: 3vw;
   padding-bottom: 20%;
   padding-right: 10%;
   text-align: end;
